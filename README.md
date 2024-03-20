@@ -1,7 +1,7 @@
 # Scrollable 3D Animation with Three.js
 
+- Basically everything is copied from [Jeff Delaney](https://github.com/fireship-io/threejs-scroll-animation-demo).
 - Watch the [full tutorial](https://youtu.be/Q7AOvWpIVHU) on YouTube
-- [Scrollable Three.js Animation](https://fireship.io/snippets/threejs-scrollbar-animation) Snippet
 
 ## Usage
 
