@@ -2,12 +2,6 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-// import alp from "./alp.jpg";
-// import space from "./space.jpg";
-// import normal from "./normal.jpg";
-// import moon from "./moon.jpg";
-
-
 // Setup
 
 const scene = new THREE.Scene();
