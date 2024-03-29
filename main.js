@@ -21,11 +21,11 @@ renderer.render(scene, camera);
 
 // Torus
 
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0x151136 });
-const torus = new THREE.Mesh(geometry, material);
+// const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+// const material = new THREE.MeshStandardMaterial({ color: 0x151136 });
+// const torus = new THREE.Mesh(geometry, material);
 
-scene.add(torus);
+// scene.add(torus);
 
 // Lights
 
@@ -58,6 +58,55 @@ function addStar() {
 
 Array(1000).fill().forEach(addStar);
 
+
+// Add moving stars
+
+function addMovingStar() {
+  const geometry = new THREE.SphereGeometry(0.1, 24, 24);
+  const material = new THREE.MeshStandardMaterial({ color: 0xff00ff });
+  const star = new THREE.Mesh(geometry, material);
+
+  // Calculate position of the star on a sphere
+  // const inclination = Math.acos(THREE.MathUtils.randFloatSpread(2) - 1); // Random inclination angle between 0 and PI
+  const inclination = 1.5707963267948966;
+  const azimuth = THREE.MathUtils.randFloatSpread(1) * Math.PI * 2; // Random azimuth angle
+
+  const x = Math.sin(inclination) * Math.cos(azimuth);
+  const y = Math.sin(inclination) * Math.sin(azimuth);
+  const z = Math.cos(inclination);
+
+  star.position.set(x, y, z);
+  scene.add(star);
+
+  // Define animation for the star to move around the origin
+  const radius = 3 + 60*Math.random()
+  const nu =  2 * Math.PI / radius; // Frequency
+  const wobblyness = 1 + 0.*Math.random()
+
+  function update() {
+    const time = performance.now() * 0.001; // Current time in seconds
+    const angle = time * nu; // Update angle based on time
+      const rho = radius; // + 0.2*Math.cos(azimuth+wobblyness*angle); // Radius of the sphere
+
+
+    // Update position based on spherical coordinates
+    const newX = rho * Math.sin(inclination) * Math.cos(azimuth + angle);
+    const newY = rho * Math.sin(inclination) * Math.sin(azimuth + angle);
+    const newZ = rho * Math.cos(inclination);
+
+    star.position.set(newX+2, newY, newZ-5);
+  }
+
+  // Add update function to the render loop
+  function render() {
+    update();
+    requestAnimationFrame(render);
+  }
+  render();
+}
+
+Array(200).fill().forEach(addMovingStar);
+
 // Background
 
 const spaceTexture = new THREE.TextureLoader().load('assets/space.jpg');
@@ -66,9 +115,7 @@ scene.background = spaceTexture;
 // Avatar
 
 const alpTexture = new THREE.TextureLoader().load('assets/alp.jpg');
-
 const alp = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: alpTexture }));
-
 scene.add(alp);
 
 // Moon
@@ -116,9 +163,9 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
 
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.005;
-  torus.rotation.z += 0.01;
+  // torus.rotation.x += 0.01;
+  // torus.rotation.y += 0.005;
+  // torus.rotation.z += 0.01;
 
   moon.rotation.x += 0.005;
 
