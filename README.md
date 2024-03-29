@@ -15,3 +15,8 @@ npm run dev
 ```
 ./deploy.sh
 ```
+
+## Manage Files
+File manager at [cPanel](https://server330.web-hosting.com:2083/)
+
+Username: `dennpaew`
