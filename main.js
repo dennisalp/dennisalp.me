@@ -61,9 +61,34 @@ Array(1000).fill().forEach(addStar);
 
 // Add moving stars
 
+function getRandomFireColor(radius) {
+  // Calculate hue based on the radius
+  const minRadius = Math.pow(3, 0.03); // Minimum radius for yellow color
+  const maxRadius = Math.pow(63, 0.03); // Maximum radius for red color
+    const hue = THREE.MathUtils.mapLinear(Math.pow(radius, 0.03)+0.04*Math.random(), minRadius, maxRadius, 0.1667, 0); // Map radius to hue within the range of yellow to red
+
+  // Convert hue to RGB
+  const rgbColor = new THREE.Color().setHSL(hue, 0.9, 0.4);
+
+  return rgbColor;
+}
+
 function addMovingStar() {
-  const geometry = new THREE.SphereGeometry(0.1, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xff00ff });
+
+  // Define animation for the star to move around the origin
+  const radius = 3 + 60*Math.random()
+  const nu =  13 * 2 * Math.PI / Math.pow(radius,2); // Frequency
+  const wobblyness = 1 + 0.*Math.random()
+
+  // Randomize fire color based on radius
+  const color = getRandomFireColor(radius);
+  const material = new THREE.MeshStandardMaterial({ color });
+
+  // Enable roughness and metalness for PBR
+  material.roughness = 0.75;
+  material.metalness = 0.25;
+
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
   const star = new THREE.Mesh(geometry, material);
 
   // Calculate position of the star on a sphere
@@ -73,26 +98,21 @@ function addMovingStar() {
 
   const x = Math.sin(inclination) * Math.cos(azimuth);
   const y = Math.sin(inclination) * Math.sin(azimuth);
-  const z = Math.cos(inclination);
+  const z = Math.cos(inclination) + 0.2 * radius * (2*Math.random()-1);
 
   star.position.set(x, y, z);
   scene.add(star);
 
-  // Define animation for the star to move around the origin
-  const radius = 3 + 60*Math.random()
-  const nu =  2 * Math.PI / radius; // Frequency
-  const wobblyness = 1 + 0.*Math.random()
-
   function update() {
     const time = performance.now() * 0.001; // Current time in seconds
     const angle = time * nu; // Update angle based on time
-      const rho = radius; // + 0.2*Math.cos(azimuth+wobblyness*angle); // Radius of the sphere
+    const rho = radius + 0.2*Math.cos(azimuth+wobblyness*angle); // Radius of the sphere
 
 
     // Update position based on spherical coordinates
     const newX = rho * Math.sin(inclination) * Math.cos(azimuth + angle);
     const newY = rho * Math.sin(inclination) * Math.sin(azimuth + angle);
-    const newZ = rho * Math.cos(inclination);
+    const newZ = rho * Math.cos(inclination) + z;
 
     star.position.set(newX+2, newY, newZ-5);
   }
@@ -105,7 +125,7 @@ function addMovingStar() {
   render();
 }
 
-Array(200).fill().forEach(addMovingStar);
+Array(400).fill().forEach(addMovingStar);
 
 // Background
 
@@ -133,8 +153,8 @@ const moon = new THREE.Mesh(
 
 scene.add(moon);
 
-moon.position.z = 30;
-moon.position.setX(-10);
+moon.position.z = 6;
+moon.position.setX(1);
 
 alp.position.z = -5;
 alp.position.x = 2;
@@ -150,9 +170,11 @@ function moveCamera() {
   alp.rotation.y += 0.01;
   alp.rotation.z += 0.01;
 
-  camera.position.z = t * -0.01;
-  camera.position.x = t * -0.0002;
-  camera.rotation.y = t * -0.0002;
+  camera.position.z = t * -0.003;
+  camera.position.x = t * -0.01;
+  // camera.position.x = t * 0.02;
+  camera.rotation.y = t * -0.0003;
+  camera.rotation.z = t * -0.0003;
 }
 
 document.body.onscroll = moveCamera;
