@@ -180,9 +180,38 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
+// Setup code...
+
+let animationEnabled = true;
+let animationId = null; // Variable to hold the requestAnimationFrame ID
+
+const toggleButton = document.getElementById('toggleButton');
+updateToggleButton(); // Call the function to set initial button text
+
+toggleButton.addEventListener('click', () => {
+    animationEnabled = !animationEnabled;
+    updateToggleButton(); // Call the function to update button text
+
+    if (animationEnabled) {
+        animate(); // Restart the animation loop if it's enabled
+    } else {
+        cancelAnimationFrame(animationId); // Cancel the animation loop if it's disabled
+    }
+});
+
+function updateToggleButton() {
+    if (animationEnabled) {
+        toggleButton.innerText = "Make it stop! (and save my CPU and battery)"; // Set button text to indicate animation is on
+    } else {
+        toggleButton.innerText = "Actually, resume the progress of time!"; // Set button text to indicate animation is off
+    }
+}
+
 // Animation Loop
 
 function animate() {
+  if (!animationEnabled) return; // Exit animation loop if animation is disabled
+
   requestAnimationFrame(animate);
 
   // torus.rotation.x += 0.01;
