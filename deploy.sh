@@ -11,3 +11,4 @@ npm run build
 cp assets/* dist/assets/
 cd dist
 scp -P 21098 -r . dennpaew@dennisalp.me:/home/dennpaew/public_html/
+cd ../
