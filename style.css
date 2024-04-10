@@ -97,3 +97,14 @@ canvas {
         grid-column: 2 / 8;
     }
   }
+
+a:link,
+a:visited {
+  color: orange;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: yellow;
+}
