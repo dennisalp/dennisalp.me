@@ -16,6 +16,17 @@ npm run dev
 ./deploy.sh "commit message"
 ```
 
+## scp issues
+`scp` has [major serious issues after a patch](https://superuser.com/questions/1403473/scp-error-unexpected-filename), so just use `rsync` instead.
+
+## ssh issues
+These can magically solve ssh issues
+```
+rm /.ssh/id_rsa
+rm /.ssh/id_rsa.pub
+```
+Also, clearing `~/.ssh/known_hosts` may help.
+
 ## Manage Files
 File manager at [cPanel](https://server330.web-hosting.com:2083/)
 

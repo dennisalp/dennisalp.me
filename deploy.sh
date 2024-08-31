@@ -10,5 +10,5 @@ rm -rf dist/
 npm run build
 cp assets/* dist/assets/
 cd dist
-scp -P 21098 -r . dennpaew@dennisalp.me:/home/dennpaew/public_html/
+rsync -avz -e "ssh -p 21098" . dennpaew@dennisalp.me:/home/dennpaew/public_html/
 cd ../
