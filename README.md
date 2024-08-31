@@ -13,7 +13,7 @@ npm run dev
 
 ## Re-deploy
 ```
-./deploy.sh
+./deploy.sh "commit message"
 ```
 
 ## Manage Files

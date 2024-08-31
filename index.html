@@ -18,6 +18,25 @@
       gtag('config', 'G-NPGPP4RFYS');
     </script>
 
+    <style>
+        .leaderboard {
+            counter-reset: leaderboard-counter;
+            border-collapse: separate;
+            border-spacing: 0 0px;
+        }
+        .leaderboard th,
+        .leaderboard td {
+            padding: 0px 20px;
+            text-align: left;
+        }
+        .leaderboard tbody tr {
+            counter-increment: leaderboard-counter;
+        }
+        .leaderboard tbody tr td:first-child::before {
+            content: counter(leaderboard-counter) ".";
+        }
+    </style>
+
   </head>
 
   <body>
@@ -61,6 +80,58 @@
 
       <blockquote>
         <p>Sometimes it tells us to buy Chrysler, sometimes it tells us to sell.<br>&emsp;&emsp;— Robert Mercer</p>
+      </blockquote>
+
+
+
+      <section class="left">
+        <h2>🏆🧠 The Great Quiz Leaderboard 🎓🥇</h2>
+
+        <table class="leaderboard">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Dennis</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Alp</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+
+      </section>
+
+
+
+      <blockquote>
+        <p>In mortgage underwriting, somehow we just missed, you know, that home prices don't go up forever.<br>&emsp;&emsp;— Jamie Dimon</p>
+      </blockquote>
+
+
+
+      <section class="right">
+
+        <h2>🗺🔍 The Great Photo Quiz 📸🕵</h2>
+        <p>
+          Match <a href="assets/ost.pdf" target="_blank">these locations</a> with <a href="https://example.com" target="_blank">these photos</a> 🧭🏙🌄🏞
+        </p>
+
+      </section>
+
+
+
+      <blockquote>
+        <p>You shouldn't really panic unless it's absolutely necessary.<br>&emsp;&emsp;— Alistair Darling</p>
       </blockquote>
 
 
